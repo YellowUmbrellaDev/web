@@ -15,11 +15,36 @@ import { fade } from 'astro:transitions';
 <html lang="en" transition:animate={fade({ duration: '0.5s' })}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		<meta
+        name="description"
+        content="The Yellow Umbrella Website ☂️ "
+      	/>
+      	<meta
+      	  name="keywords"
+      	  content="YellowUmbrella, yellow, umbrella"
+      	/>
+      	<meta property="og:title" content="Nerea Kalandadze's web" />
+      	<meta
+      	  property="og:description"
+      	  content="The Yellow Umbrella Website ☂️"
+      	/>
+      	<meta property="og:image" content="https://yellowumbrella.dev/card.png" />
+      	<meta property="og:url" content="https://yellowumbrella.dev/" />
+      	<meta property="twitter:domain" content="yellowumbrella.dev"/>
+      	<meta property="twitter:url" content="https://yellowumbrella.dev/"/>
+      	<meta name="twitter:title" content="The Yellow Umbrella"/>
+      	<meta name="twitter:description" content="The Yellow Umbrella Website ☂️"/>
+      	<meta name="twitter:card" content="summary_large_image" />
+      	<meta name="twitter:image" content="https://yellowumbrella.dev/card.png"/>
 		<ViewTransitions/>
 	</head>
 	<body class="no-scroll">
