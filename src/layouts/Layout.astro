@@ -6,11 +6,13 @@ interface Props {
 const { title } = Astro.props;
 import { ViewTransitions } from 'astro:transitions';
 import { InteractiveRain } from "../components/Rain.jsx";
+import { fade } from 'astro:transitions';
+
 
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="slide">
+<html lang="en" transition:animate={fade({ duration: '0.5s' })}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -20,7 +22,7 @@ import { InteractiveRain } from "../components/Rain.jsx";
 		<title>{title}</title>
 		<ViewTransitions/>
 	</head>
-	<body>
+	<body class="no-scroll">
 		<slot />
 		<InteractiveRain client:only="react"></InteractiveRain>
 	</body>
@@ -57,4 +59,14 @@ import { InteractiveRain } from "../components/Rain.jsx";
 		);
 		background: #13151a;
 	}
+	.no-scroll::-webkit-scrollbar {
+	  display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	.no-scroll {
+	  -ms-overflow-style: none;  /* IE and Edge */
+	  scrollbar-width: none;  /* Firefox */
+	}
+
 </style>

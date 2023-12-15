@@ -5,19 +5,26 @@ const isMobile = window.innerWidth <= 800;
 
 
 const SETTINGS = {
-    dropNumber: 200,               
-    dropLength: 30,                 
-    globalSpeedMultiplier: 5,      
+    dropNumber: 200,                                         // [50, 10000)          El número de gotas que se dibujarán en pantalla. A mayor valor, mayor coste computacional
+   
+    dropLength: 30,                                         // [5, 100]             La longitud base de las gotas. Esta se verá alterada por su velocidad final (las gotas más rápidas serán más largas)
+    globalSpeedMultiplier: 5,                               // [0, 15)               La velocidad a la que caen las gotas. Un valor negativo podría generar alteraciones en la gravedad. Usar con cuidado
 
-    mouseInteractionRadius: isMobile ? 0 : 100,  
-    interactionStepDivider: 10,     
 
-    useUmbrella: false,              
-    mouseUmbrellaShadow: 0.8,       
+    mouseInteractionRadius: isMobile ? 0 : 100,            // [10, 500]            El radio alrededor del ratón en el que las gotas interactúan con él.
 
-    windSpeed: -10,                 
+    interactionStepDivider: 10,                            // [5, 15]              La cantidad de vértices que crea una gota al surfear el paraguas. Valores más altos: gotas más suaves, pero más costosas de procesar.
 
-    dropColor: {                    
+
+    useUmbrella: false,                                    // true | false         Si el agua se desvía o no bajo la sombra del ratón
+
+    mouseUmbrellaShadow: 0.8,                              // [0.0, 1.0]           La cantidad de sombra que proyecta el ratón. 0: sin sombra. 1: sombra total.
+
+
+    windSpeed: -10,                                        // [-10, 10]            Valores negativos: viento hacia la izquierda. Valores positivos: viento hacia la derecha. 0: sin viento. Valores más allá de los límites pueden causar comportamientos erráticos.
+
+
+    dropColor: {                                           // [0, 255]{4}          El color de las gotas. La opacidad final de la gota se calcula en base a su velocidad (su profundidad en la escena)     
         r: 220,
         g: 220,
         b: 255,
