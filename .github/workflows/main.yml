@@ -27,5 +27,5 @@ jobs:
         description: "Deployed to server"
         url: "https://github.com/The-Yellow-Umbrella/web/actions/"
         avatar_url: "https://yellowumbrella.dev/yellowumbrella512.png"
-        username: "Yellow Umbrella web Actions Actions"
+        username: "Yellow Umbrella web Actions"
       
