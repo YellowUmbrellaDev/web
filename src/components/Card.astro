@@ -1,0 +1,17 @@
+---
+const {title, abstract, image, url} = Astro.props
+import { Image } from 'astro:assets';
+---
+<a href={url}>
+    <div class="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-10">
+        <div class="flex max-w-2xl mt-10">
+            <Image src={image} alt={title} width={700} height={300} />
+        </div>
+        <div class="flex max-w-2xl mt-10">
+            <h1 class="text-white font-bold text-4xl text-center m-5">{title}</h1>
+        </div>
+        <div class="flex mx-auto max-w-2xl mt-10">
+            <p class="text-white m-4">{abstract}...</p>
+        </div>
+    </div>
+</a>

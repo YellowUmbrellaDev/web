@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Head from "../components/Head.astro";
+import Card from "../components/Card.astro";
+const res = await fetch(`https://blog.nereacassian.com/ghost/api/content/posts/?key=${import.meta.env.PUBLIC_GHOST_CONTENT_API_KEY}&limit=6`);
+const data = await res.json();
+---
+<Layout title="Blog">
+    <Head/>
+    <div class="place-items-center mt-10">
+        <div class="flex place-content-center">
+            <h1 class="text-white text-6xl">Blog</h1>
+        </div>
+        <div class="flex place-content-center mx-auto max-w-2xl mt-10">
+            <p class="flex text-justify text-white">Latest post of out blog</p>
+        </div>
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 m-2">
+            {
+                data.posts.map((post) => (
+                    <Card
+                        title={post.title}
+                        image={post.feature_image}
+                        abstract={post.excerpt}
+                        url={post.url}
+                    />
+                ))
+            }
+        </div>
+        
+    </div>
+</Layout>
