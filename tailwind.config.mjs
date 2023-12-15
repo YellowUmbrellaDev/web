@@ -4,6 +4,7 @@ export default {
 	theme: {
 		fontFamily: {
 			sans: ['MonaspaceKrypton'],
+			monaspace: ['MonaspaceArgon'],
 		},
 		extend: {},
 	},
