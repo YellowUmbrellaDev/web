@@ -1,0 +1,31 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Connect to server and deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no root@nereacassian.com 'cd /root/web && git pull && docker compose up -d --build'
+              
+    - name: Actions Status Discord
+      uses: sarisia/actions-status-discord@v1.13.0
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        status: ${{ job.status }}
+        title: ${{ github.repository }}
+        description: "Deployed to server"
+        url: "https://github.com/The-Yellow-Umbrella/web/actions/"
+        avatar_url: "https://yellowumbrella.dev/yellowumbrella512.png"
+        username: "Yellow Umbrella web Actions Actions"
+      
