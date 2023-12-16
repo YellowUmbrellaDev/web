@@ -13,9 +13,13 @@ export const prerender = false
             <h1 class="text-white text-6xl">Blog</h1>
         </div>
         <div class="flex place-content-center mx-auto max-w-2xl mt-10">
-            <p class="flex text-justify text-white">Latest post of out blog</p>
+            <p class="flex text-justify text-white text-2 lg:text-2xl">Latest post of 
+                <a href="http://blog.yellowumbrella.dev" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-transparent bg-clip-text ml-2">
+                    blog.yellowumbrella.dev
+                </a>
+            </p>
         </div>
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 m-2">
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:m-20 m-5">
             {
                 data.posts.map((post) => (
                     <Card
