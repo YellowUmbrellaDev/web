@@ -34,13 +34,12 @@ Build the docker image and run the container
 ## Project structure
 
 ```text
-
 ├── public
 │   │ // Static files
 │   │
 │   ├── fonts
-│   │ // Fonts used in the website
-│   │
+│    // Fonts used in the website
+│   
 ├── src
 │   ├── components
 │   │ // Components used in the pages
@@ -49,5 +48,6 @@ Build the docker image and run the container
 │   │ // Layouts used in the pages
 │   │
 │   ├── pages
-│   │ // Pages of the website
-│   │
+│     // Pages of the website
+│   
+```
