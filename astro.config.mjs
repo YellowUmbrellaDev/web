@@ -11,5 +11,8 @@ export default defineConfig({
   output: "hybrid",
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  image: {
+    domains: ["blog.nereacassian.com", "blog.yellowumbrella.dev", "yellowumbrella.dev", "nereacassian.com"],
+  }
 });

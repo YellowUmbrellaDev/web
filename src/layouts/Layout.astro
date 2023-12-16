@@ -46,6 +46,15 @@ import { fade } from 'astro:transitions';
       	<meta name="twitter:card" content="summary_large_image" />
       	<meta name="twitter:image" content="https://yellowumbrella.dev/card.png"/>
 		<ViewTransitions/>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-89BNSENYQW"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'G-89BNSENYQW');
+		</script>
 	</head>
 	<body class="no-scroll">
 		<slot />

@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Head from "../components/Head.astro";
 import Card from "../components/Card.astro";
-const res = await fetch(`https://blog.nereacassian.com/ghost/api/content/posts/?key=${import.meta.env.PUBLIC_GHOST_CONTENT_API_KEY}&limit=6`);
+const res = await fetch(`https://blog.yellowumbrella.dev/ghost/api/content/posts/?key=${import.meta.env.PUBLIC_GHOST_CONTENT_API_KEY}&limit=6`);
 const data = await res.json();
 export const prerender = false
 ---
