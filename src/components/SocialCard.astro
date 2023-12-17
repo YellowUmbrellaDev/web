@@ -3,20 +3,128 @@ const {image, name, link} = Astro.props;
 import { Image } from 'astro:assets';
 ---
 <div class="flex justify-center m-5">
-    <div class="relative w-64 h-24 mx-auto">
-        <button class="top-0 left-0 w-44 h-10 bg-blue-500">
-            <Image
-            src={image}
-            alt={name}
-            width="30px"
-            height="30px"
-        />
-        <p class="text-white ml-3">
-            <a href={link}>{name}</a>
-        </p>
-        </button>
-        <svg class="absolute top-0 right-12 w-8 h-10 fill-current text-blue-500" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <polygon points="0,0 0,100 100,100"></polygon>
-        </svg>
+    <div>
+        <a href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <button class="button-49 grid grid-rows-1 grid-cols-3 lg:grid-cols-2 items-center gap-0" role="button">
+                <div class="m-3">
+                    <Image
+                        class="lg:w-14 w-10"
+                        src={image}
+                        alt={name}
+                        width="256"
+                        height="244"
+                    />
+                </div>
+                <div class="lg:mr-3 col-span-2 lg:col-span-1">
+                    <p class="text-black font-bold">
+                        {name}
+                    </p>
+                </div>
+            </button>
+        </a>
     </div>
 </div>
+
+
+<style>
+
+    .button-49,
+    .button-49:after {
+      width: 150px;
+      height: 76px;
+      line-height: 78px;
+      font-size: 20px;
+      background: linear-gradient(45deg, transparent 5%, #f2de03 5%);
+      border: 0;
+      box-shadow: 6px 0px 0px #f210d4;
+      outline: transparent;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    .button-49:after {
+      --slice-0: inset(50% 50% 50% 50%);
+      --slice-1: inset(80% -6px 0 0);
+      --slice-2: inset(50% -6px 30% 0);
+      --slice-3: inset(10% -6px 85% 0);
+      --slice-4: inset(40% -6px 43% 0);
+      --slice-5: inset(80% -6px 5% 0);
+    
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 3%, #f210d4 3%, #f210d4 5%, #f2de03 5%);
+      text-shadow: -3px -3px 0px #F8F005, 3px 3px 0px #f210d4;
+      clip-path: var(--slice-0);
+    }
+    
+    .button-49:hover:after {
+      animation: 1s glitch;
+      animation-timing-function: steps(2, end);
+    }
+    
+    @keyframes glitch {
+      0% {
+        clip-path: var(--slice-1);
+        transform: translate(-20px, -10px);
+      }
+      10% {
+        clip-path: var(--slice-3);
+        transform: translate(10px, 10px);
+      }
+      20% {
+        clip-path: var(--slice-1);
+        transform: translate(-10px, 10px);
+      }
+      30% {
+        clip-path: var(--slice-3);
+        transform: translate(0px, 5px);
+      }
+      40% {
+        clip-path: var(--slice-2);
+        transform: translate(-5px, 0px);
+      }
+      50% {
+        clip-path: var(--slice-3);
+        transform: translate(5px, 0px);
+      }
+      60% {
+        clip-path: var(--slice-4);
+        transform: translate(5px, 10px);
+      }
+      70% {
+        clip-path: var(--slice-2);
+        transform: translate(-10px, 10px);
+      }
+      80% {
+        clip-path: var(--slice-5);
+        transform: translate(20px, -10px);
+      }
+      90% {
+        clip-path: var(--slice-1);
+        transform: translate(-10px, 0px);
+      }
+      100% {
+        clip-path: var(--slice-1);
+        transform: translate(0);
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .button-49,
+      .button-49:after {
+        width: 200px;
+        height: 86px;
+        line-height: 88px;
+      }
+    }
+</style>

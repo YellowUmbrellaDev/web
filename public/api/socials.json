@@ -1,14 +1,14 @@
 {
-    "socials": [
-         {
-            "name": "Twitter",
-            "icon": "/twitter.png",
-            "link": "example.com"
-         },
-         {
-            "name": "Github",
-            "icon": "/github.png",
-            "link": "example.com"
-         }
-    ]
+   "socials": [
+      {
+         "name": "Twitter",
+         "icon": "/twitter.png",
+         "link": "https://twitter.com/theyellowumbrella"
+      },
+      {
+         "name": "Github",
+         "icon": "/github.png",
+         "link": "https://github.com/The-Yellow-Umbrella"
+      }
+   ]
 }

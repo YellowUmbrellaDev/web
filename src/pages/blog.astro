@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Head from "../components/Head.astro";
-import Card from "../components/Card.astro";
+import BlogCard from "../components/BlogCard.astro";
 const res = await fetch(`https://blog.yellowumbrella.dev/ghost/api/content/posts/?key=${import.meta.env.PUBLIC_GHOST_CONTENT_API_KEY}&limit=6`);
 const data = await res.json();
 export const prerender = false
@@ -14,7 +14,7 @@ export const prerender = false
         </div>
         <div class="flex place-content-center mx-auto max-w-2xl mt-10">
             <p class="flex text-justify text-white text-2 lg:text-2xl">Latest post of 
-                <a href="http://blog.yellowumbrella.dev" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-transparent bg-clip-text ml-2">
+                <a href="http://blog.yellowumbrella.dev" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-transparent bg-clip-text ml-3">
                     blog.yellowumbrella.dev
                 </a>
             </p>
@@ -22,7 +22,7 @@ export const prerender = false
         <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:m-20 m-5">
             {
                 data.posts.map((post) => (
-                    <Card
+                    <BlogCard
                         title={post.title}
                         image={post.feature_image}
                         abstract={post.excerpt}
