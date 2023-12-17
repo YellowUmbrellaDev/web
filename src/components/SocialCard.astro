@@ -1,0 +1,22 @@
+---
+const {image, name, link} = Astro.props;
+import { Image } from 'astro:assets';
+---
+<div class="flex justify-center m-5">
+    <div class="relative w-64 h-24 mx-auto">
+        <button class="top-0 left-0 w-44 h-10 bg-blue-500">
+            <Image
+            src={image}
+            alt={name}
+            width="30px"
+            height="30px"
+        />
+        <p class="text-white ml-3">
+            <a href={link}>{name}</a>
+        </p>
+        </button>
+        <svg class="absolute top-0 right-12 w-8 h-10 fill-current text-blue-500" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polygon points="0,0 0,100 100,100"></polygon>
+        </svg>
+    </div>
+</div>

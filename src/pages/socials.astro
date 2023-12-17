@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import SocialCard from "../components/SocialCard.astro";
 import Head from "../components/Head.astro";
+const social = await fetch(`http:/localhost:4321/api/socials.json`);
+const data = await social.json();
+export const prerender = false
 ---
 <Layout title="Socials">
     <Head/>
@@ -8,8 +12,19 @@ import Head from "../components/Head.astro";
         <div class="flex place-content-center">
             <h1 class="text-white text-6xl">Socials</h1>
         </div>
-        <div class="flex place-content-center mx-auto max-w-2xl mt-10">
-            <p class="flex text-justify text-white">All of our Links</p>
+        <div class="flex place-content-center mx-auto max-w-2xl mt-2">
+            <p class="flex text-justify text-white">All of our Links:</p>
+        </div>
+        <div class="m-10">
+            {
+                data.socials.map((output) => (
+                <SocialCard
+                    image={output.icon}
+                    name={output.name}
+                    link={output.link}
+                />
+                ))
+            }
         </div>
     </div>
 </Layout>
