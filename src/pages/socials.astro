@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SocialCard from "../components/SocialCard.astro";
 import Head from "../components/Head.astro";
-const social = await fetch(`http:/localhost:4321/api/socials.json`);
+const social = await fetch(`https:/yellowumbrella.dev/api/socials.json`);
 const data = await social.json();
 export const prerender = false
 ---
