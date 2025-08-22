@@ -68,7 +68,6 @@ export default function ContactForm() {
       };
 
 
-
       const res = await fetch("/api/contacto", {
         method: "POST",
         headers: { "Content-Type": "application/json", "cf-token": token },
