@@ -32,7 +32,7 @@ const SETTINGS = {
     }
 }
 
-export const InteractiveRain = (props) => {
+export const InteractiveRain = (_props) => {
 
     const drops = [];
 
@@ -158,6 +158,8 @@ const processDrop = (drop, mouseX, mouseY) => {
 
                     const xDiff = Math.abs(calculatedX - lastX);
                     if (xDiff > 20) {
+                        // Handle large x difference
+                        calculatedX = lastX;
                     }
 
                     points.push({
@@ -234,6 +236,6 @@ const windOffset = (x, distanceFromOrigin) => {
     return x + distanceFromOrigin * SETTINGS.windSpeed;
 }
 
-const frictionOffset = (x, distanceFromOrigin) => {
+const _frictionOffset = (x, distanceFromOrigin) => {
     return Math.round(Math.cos(x + distanceFromOrigin) * SETTINGS.windSpeed);
 }
