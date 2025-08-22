@@ -15,7 +15,24 @@ export const POST: APIRoute = async ({ request }) => {
     try {
       const rawBody = await request.text();
       if (rawBody) {
-        body = JSON.parse(rawBody);
+interface ContactRequestBody {
+  nombreCompleto?: string;
+  email?: string;
+  cargo?: string;
+  empresa?: string;
+  mensaje?: string;
+  turnstileToken?: string;
+  "cf-turnstile-response"?: string;
+  [key: string]: unknown; // Allow for any additional fields
+}
+
+export const POST: APIRoute = async ({ request }) => {
+  try {
+    let body: ContactRequestBody = {};
+    try {
+      const rawBody = await request.text();
+      if (rawBody) {
+        body = JSON.parse(rawBody) as ContactRequestBody;
       }
     } catch (parseError) {
       body = {};
