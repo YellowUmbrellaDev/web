@@ -17,8 +17,9 @@ export const prerender = false
         </div>
         <div class="m-10">
             {
-                data.socials.map((output) => (
+                data.socials.map((output, index) => (
                 <SocialCard
+                    key={index}
                     image={output.icon}
                     name={output.name}
                     link={output.link}

@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-import type { Value as PhoneValue } from "react-phone-number-input";
 import { Turnstile } from "@marsidev/react-turnstile";
 import type { TurnstileInstance } from "@marsidev/react-turnstile";
 import "react-phone-number-input/style.css";
@@ -14,16 +13,6 @@ type FormInputs = {
   mensaje: string;
 };
 
-function splitFullName(fullName: string): { nombre: string; apellidos: string } {
-  const parts = fullName
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  if (parts.length === 0) return { nombre: "", apellidos: "" };
-  if (parts.length === 1) return { nombre: parts[0], apellidos: "" };
-  const [first, ...rest] = parts;
-  return { nombre: first, apellidos: rest.join(" ") };
-}
 
 export default function ContactForm() {
   const {
@@ -85,8 +74,8 @@ export default function ContactForm() {
       setTurnstileToken("");
       // Reset Turnstile widget using ref
       turnstileRef.current?.reset();
-    } catch (err: any) {
-      setStatus({ type: "error", message: err.message || "Error inesperado" });
+    } catch (err: unknown) {
+      setStatus({ type: "error", message: (err instanceof Error ? err.message : String(err)) || "Error inesperado" });
     }
   };
 
@@ -160,9 +149,10 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-white">Teléfono (opcional)</label>
+        <label className="mb-1 block text-sm font-medium text-white" htmlFor="telefono">Teléfono (opcional)</label>
         <div className="rounded-md border border-white/20 bg-white/10 p-2 text-white focus-within:border-yellow-400">
           <PhoneInput
+            id="telefono"
             defaultCountry="ES"
             placeholder="+34 600 123 456"
             value={telefono}
@@ -204,7 +194,7 @@ export default function ContactForm() {
             setTurnstileToken(token);
             setTurnstileReady(true);
           }}
-          onError={(error) => {
+          onError={(_error) => {
             setTurnstileToken("");
             setTurnstileReady(false);
           }}

@@ -2,29 +2,24 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
-type TurnstileResponse = {
-  success: boolean;
-  challenge_ts?: string;
-  hostname?: string;
-  "error-codes"?: string[];
-};
-
-export const POST: APIRoute = async ({ request }) => {
-  try {
-    let body: any = {};
-    try {
-      const rawBody = await request.text();
-      if (rawBody) {
 interface ContactRequestBody {
   nombreCompleto?: string;
   email?: string;
   cargo?: string;
   empresa?: string;
   mensaje?: string;
+  telefono?: string;
   turnstileToken?: string;
   "cf-turnstile-response"?: string;
   [key: string]: unknown; // Allow for any additional fields
 }
+
+type TurnstileResponse = {
+  success: boolean;
+  challenge_ts?: string;
+  hostname?: string;
+  "error-codes"?: string[];
+};
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -78,8 +73,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const webhookUrl = (import.meta.env.WEBHOOK_URL || (process as any)?.env?.WEBHOOK_URL) as
-      | string
     const webhookUrl = import.meta.env.WEBHOOK_URL as string | undefined;
     if (!webhookUrl) {
       return new Response(JSON.stringify({ error: "missing-webhook-url" }), {
@@ -126,11 +119,10 @@ export const POST: APIRoute = async ({ request }) => {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (e: any) {
-    return new Response(JSON.stringify({ error: "unexpected", message: e?.message }), {
+  } catch (e: unknown) {
+    return new Response(JSON.stringify({ error: "unexpected", message: e instanceof Error ? e.message : String(e) }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
   }
 };
-

@@ -7,7 +7,6 @@ const { title } = Astro.props;
 import { ViewTransitions } from 'astro:transitions';
 import { InteractiveRain } from "../components/Rain.jsx";
 import { fade } from 'astro:transitions';
-import AstroLogo from '../components/svg/AstroLogo.astro';
 
 
 ---
@@ -26,8 +25,8 @@ import AstroLogo from '../components/svg/AstroLogo.astro';
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#ffffff">
 		<meta
-        name="description"
-        content="The Yellow Umbrella Website ☂️ "
+        	name="description"
+        	content="The Yellow Umbrella Website ☂️ "
       	/>
       	<meta
       	  name="keywords"
@@ -47,26 +46,11 @@ import AstroLogo from '../components/svg/AstroLogo.astro';
       	<meta name="twitter:card" content="summary_large_image" />
       	<meta name="twitter:image" content="https://yellowumbrella.dev/card.png"/>
 		<ViewTransitions/>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-89BNSENYQW"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		
-		  gtag('config', 'G-89BNSENYQW');
-		</script>
 	</head>
 	<body class="no-scroll">
 		<slot />
 		<InteractiveRain client:only="react"></InteractiveRain>
 	</body>
-	<!-- 
-	<footer class="flex items-center justify-center flex-col">
-		<p class="mr-2 text-white text-3xl">Built with</p>
-		<a href="https://astro.build/" target="_blank" rel="noopener noreferrer"><AstroLogo/></a>
-	</footer> 
-	-->
 </html>
 <style is:global>
 

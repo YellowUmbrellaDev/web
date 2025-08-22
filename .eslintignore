@@ -1,0 +1,30 @@
+# Directorios de build y distribución
+dist/
+build/
+.astro/
+
+# Dependencias
+node_modules/
+
+# Archivos públicos
+public/
+
+# Archivos de configuración que no necesitan linting
+*.config.js
+*.config.mjs
+wrangler.toml
+
+# Archivos minimizados
+*.min.js
+*.min.css
+
+# Archivos de logs
+*.log
+
+# Archivos de entorno
+.env
+.env.local
+.env.production
+
+# Archivos de cache
+.cache/
