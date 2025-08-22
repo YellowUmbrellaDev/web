@@ -21,7 +21,7 @@ type TurnstileResponse = {
   "error-codes"?: string[];
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     let body: ContactRequestBody = {};
     try {
@@ -47,7 +47,9 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const secret = import.meta.env.TURNSTILE_SECRET_KEY as string | undefined;
+    // ✅ Acceso correcto a variables de entorno en Cloudflare Pages
+    const { env } = locals.runtime;
+    const secret = env.TURNSTILE_SECRET_KEY as string | undefined;
     if (!secret) {
       return new Response(JSON.stringify({ error: "server-misconfigured" }), {
         status: 500,
@@ -73,7 +75,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const webhookUrl = import.meta.env.WEBHOOK_URL as string | undefined;
+    const webhookUrl = env.WEBHOOK_URL as string | undefined;
     if (!webhookUrl) {
       return new Response(JSON.stringify({ error: "missing-webhook-url" }), {
         status: 500,
