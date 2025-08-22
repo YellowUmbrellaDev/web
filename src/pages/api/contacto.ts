@@ -80,7 +80,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const webhookUrl = (import.meta.env.WEBHOOK_URL || (process as any)?.env?.WEBHOOK_URL) as
       | string
-      | undefined;
+    const webhookUrl = import.meta.env.WEBHOOK_URL as string | undefined;
     if (!webhookUrl) {
       return new Response(JSON.stringify({ error: "missing-webhook-url" }), {
         status: 500,
