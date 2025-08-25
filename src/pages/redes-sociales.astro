@@ -6,14 +6,14 @@ const social = await fetch(`https:/yellowumbrella.dev/api/socials.json`);
 const data = await social.json();
 export const prerender = false
 ---
-<Layout title="Socials">
+<Layout title="Redes sociales">
     <Head/>
     <div class="place-items-center mt-10">
         <div class="flex place-content-center">
-            <h1 class="text-white text-6xl">Socials</h1>
+            <h1 class="text-white text-6xl">Redes sociales</h1>
         </div>
         <div class="flex place-content-center mx-auto max-w-2xl mt-2">
-            <p class="flex text-justify text-white">All of our Links:</p>
+            <p class="flex text-justify text-white">Enlaces a nuestras redes sociales:</p>
         </div>
         <div class="m-10">
             {
