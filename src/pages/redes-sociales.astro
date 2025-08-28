@@ -2,7 +2,18 @@
 import Layout from "../layouts/Layout.astro";
 import SocialCard from "../components/SocialCard.astro";
 import Head from "../components/Head.astro";
-import data from "../../public/api/socials.json";
+import data from "../api/socials.json";
+import twitter from "../images/twitter.svg";
+import github from "../images/github-circle.svg";
+import linkedin from "../images/linkedin.svg";
+
+// Crear mapeo de iconos
+const iconMap = {
+  "twitter": twitter,
+  "github-circle": github,
+  "linkedin": linkedin
+};
+
 export const prerender = false
 ---
 <Layout title="Redes sociales">
@@ -19,7 +30,7 @@ export const prerender = false
                 data.socials.map((output, index) => (
                 <SocialCard
                     key={index}
-                    icon={output.icon}
+                    icon={iconMap[output.icon]}
                     name={output.name}
                     link={output.link}
                 />

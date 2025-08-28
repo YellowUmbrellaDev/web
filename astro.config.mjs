@@ -8,9 +8,9 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [react(), tailwind()],
   output: "hybrid",
-  adapter: cloudflare(),
+  adapter: cloudflare({
+  }),
   image: {
     domains: ["yellowumbrella.dev"],
-    service: passthroughImageService(),
   }
 });
