@@ -1,6 +1,5 @@
 ---
 const {icon, name, link} = Astro.props;
-import { Image } from 'astro:assets';
 ---
 <div class="flex justify-center m-2">
     <div class="relative group">
@@ -10,9 +9,9 @@ import { Image } from 'astro:assets';
             class="relative block no-underline"
         >
             <div class="w-24 h-24 md:w-32 md:h-32 relative overflow-visible rounded-xl md:rounded-2xl transition-all duration-500 ease-in-out select-none touch-manipulation">
-                <Image
+                <img
                     class="w-full h-full object-contain transition-all duration-500 ease-in-out [filter:brightness(0)_saturate(100%)_invert(64%)_sepia(8%)_saturate(1451%)_hue-rotate(174deg)_brightness(102%)_contrast(89%)] group-hover:[filter:brightness(0)_saturate(100%)_invert(84%)_sepia(61%)_saturate(2794%)_hue-rotate(359deg)_brightness(102%)_contrast(101%)] p-3"
-                    src={icon}
+                    src={icon.src}
                     alt={name}
                     width="256"
                     height="244"
