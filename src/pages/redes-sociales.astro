@@ -2,8 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SocialCard from "../components/SocialCard.astro";
 import Head from "../components/Head.astro";
-const social = await fetch(`https:/yellowumbrella.dev/api/socials.json`);
-const data = await social.json();
+import data from "../../public/api/socials.json";
 export const prerender = false
 ---
 <Layout title="Redes sociales">
@@ -15,12 +14,12 @@ export const prerender = false
         <div class="flex place-content-center mx-auto max-w-2xl mt-2">
             <p class="flex text-justify text-white">Enlaces a nuestras redes sociales:</p>
         </div>
-        <div class="m-10">
+        <div class="m-10 socials flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
             {
                 data.socials.map((output, index) => (
                 <SocialCard
                     key={index}
-                    image={output.icon}
+                    icon={output.icon}
                     name={output.name}
                     link={output.link}
                 />
