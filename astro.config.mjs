@@ -10,6 +10,7 @@ export default defineConfig({
   output: "hybrid",
   adapter: cloudflare(),
   image: {
-    domains: ["blog.nereacassian.com", "blog.yellowumbrella.dev", "yellowumbrella.dev", "nereacassian.com"],
+    domains: ["yellowumbrella.dev"],
+    service: passthroughImageService(),
   }
 });
