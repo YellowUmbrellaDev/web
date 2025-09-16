@@ -3,10 +3,12 @@
 import Head from "../components/Head.astro";
 import Layout from "../layouts/Layout.astro";
 
+const title = "Sobre nosotros";
+const description = "Conoce más sobre nuestro equipo y misión.";
 
 ---
 
-<Layout title="Sobre nosotros">
+<Layout title={title} description={description}>
     <Head/>
     <div class="place-items-center m-4">
         <div class="flex place-content-center">

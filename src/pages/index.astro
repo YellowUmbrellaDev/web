@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Head from "../components/Head.astro";
+
+const title = "Yellow Umbrella";
+const description = "It's raining outside, take this";
 ---
 
-<Layout title="Yellow Umbrella">
+<Layout title={title} description={description}>
 	<div class="flex justify-center items-center h-screen ">
 		<div class="">
 			<Head/>
