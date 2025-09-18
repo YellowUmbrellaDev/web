@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import SocialCard from "../components/SocialCard.astro";
 import Head from "../components/Head.astro";
 import data from "../api/socials.json";
+import pagesData from "../api/pages.json";
 import twitter from "../images/twitter.svg";
 import github from "../images/github-circle.svg";
 import linkedin from "../images/linkedin.svg";
@@ -16,8 +17,9 @@ const iconMap = {
 
 export const prerender = false
 
-const title = "Redes sociales";
-const description = "Nuestras redes sociales.";
+const currentPath = "/redes-sociales";
+const pageData = pagesData.pages.find(page => page.url === currentPath);
+const { title, description } = pageData;
 ---
 <Layout title={title} description={description}>
     <Head/>

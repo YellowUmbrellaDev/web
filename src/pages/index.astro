@@ -1,15 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Head from "../components/Head.astro";
+import pagesData from "../api/pages.json";
 
-const title = "Yellow Umbrella";
-const description = "It's raining outside, take this";
+const currentPath = "/";
+const pageData = pagesData.pages.find(page => page.url === currentPath);
+const { title, description } = pageData;
 ---
 
 <Layout title={title} description={description}>
-	<div class="flex justify-center items-center h-screen ">
-		<div class="">
-			<Head/>
-		</div>
-	</div>
+    <div class="flex justify-center items-center h-screen ">
+        <div class="">
+            <Head/>
+        </div>
+    </div>
 </Layout>

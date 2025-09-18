@@ -2,9 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.tsx";
 import Head from "../components/Head.astro";
+import pagesData from "../api/pages.json";
 
-const title = "Contacto";
-const description = "Ponte en contacto con nosotros.";
+const currentPath = "/contacto";
+const pageData = pagesData.pages.find((page) => page.url === currentPath);
+const { title, description } = pageData;
 ---
 
 <Layout title={title} description={description}>

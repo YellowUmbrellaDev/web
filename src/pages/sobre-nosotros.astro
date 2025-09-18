@@ -1,11 +1,11 @@
 ---
-
 import Head from "../components/Head.astro";
 import Layout from "../layouts/Layout.astro";
+import pagesData from "../api/pages.json";
 
-const title = "Sobre nosotros";
-const description = "Conoce más sobre nuestro equipo y misión.";
-
+const currentPath = "/sobre-nosotros";
+const pageData = pagesData.pages.find(page => page.url === currentPath);
+const { title, description } = pageData;
 ---
 
 <Layout title={title} description={description}>
