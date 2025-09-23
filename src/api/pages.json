@@ -1,0 +1,24 @@
+{
+  "pages": [
+    {
+      "url": "/",
+      "title": "Yellow Umbrella",
+      "description": "It's raining outside, take this"
+    },
+    {
+      "url": "/contacto",
+      "title": "Contacto",
+      "description": "Ponte en contacto con nosotros"
+    },
+    {
+      "url": "/redes-sociales",
+      "title": "Redes sociales",
+      "description": "Siguenos en nuestras redes sociales"
+    },
+    {
+      "url": "/sobre-nosotros",
+      "title": "Sobre nosotros",
+      "description": "Conoce más sobre nuestro equipo"
+    }
+  ]
+}

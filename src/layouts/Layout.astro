@@ -1,13 +1,15 @@
 ---
 interface Props {
 	title: string;
+	description: string;
 }
-
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 import { ViewTransitions } from 'astro:transitions';
 import { InteractiveRain } from "../components/Rain.jsx";
 import { fade } from 'astro:transitions';
 
+const path = Astro.url.pathname;
+const ogImageUrl = new URL(`/og${path === '/' ? '' : path}.png`, Astro.url);
 
 ---
 
@@ -24,27 +26,22 @@ import { fade } from 'astro:transitions';
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#ffffff">
-		<meta
-        	name="description"
-        	content="The Yellow Umbrella Website ☂️ "
-      	/>
-      	<meta
-      	  name="keywords"
-      	  content="YellowUmbrella, yellow, umbrella"
-      	/>
-      	<meta property="og:title" content="The Yellow Umbrella" />
-      	<meta
-      	  property="og:description"
-      	  content="The Yellow Umbrella Website ☂️"
-      	/>
-      	<meta property="og:image" content="https://yellowumbrella.dev/card.png" />
-      	<meta property="og:url" content="https://yellowumbrella.dev/" />
+		<meta name="description" content={description} />
+      	<meta name="keywords" content="YellowUmbrella, yellow, umbrella"/>
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+  		
+		<meta property="og:image" content={ogImageUrl.toString()} />
+		<meta property="og:image:width" content="1200" />
+  		<meta property="og:image:height" content="630" />
+      	
+		<meta property="og:url" content="https://yellowumbrella.dev/" />
       	<meta property="twitter:domain" content="yellowumbrella.dev"/>
       	<meta property="twitter:url" content="https://yellowumbrella.dev/"/>
-      	<meta name="twitter:title" content="The Yellow Umbrella"/>
-      	<meta name="twitter:description" content="The Yellow Umbrella Website ☂️"/>
-      	<meta name="twitter:card" content="summary_large_image" />
-      	<meta name="twitter:image" content="https://yellowumbrella.dev/card.png"/>
+      	<meta name="twitter:title" content="Yellow Umbrella"/>
+      	<meta name="twitter:description" content={description}/>
+		<meta name="twitter:card" content="summary_large_image" />
+  		<meta name="twitter:image" content={ogImageUrl.toString()} />
 		<ViewTransitions/>
 	</head>
 	<body class="no-scroll">

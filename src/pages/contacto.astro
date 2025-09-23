@@ -2,9 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.tsx";
 import Head from "../components/Head.astro";
+import pagesData from "../api/pages.json";
+
+const currentPath = "/contacto";
+const pageData = pagesData.pages.find((page) => page.url === currentPath);
+const { title, description } = pageData;
 ---
 
-<Layout title="Contacto – Yellow Umbrella">
+<Layout title={title} description={description}>
   <Head />
   <div class="mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4">
     <section class="w-full">

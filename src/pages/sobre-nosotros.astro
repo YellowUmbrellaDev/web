@@ -1,12 +1,14 @@
 ---
-
 import Head from "../components/Head.astro";
 import Layout from "../layouts/Layout.astro";
+import pagesData from "../api/pages.json";
 
-
+const currentPath = "/sobre-nosotros";
+const pageData = pagesData.pages.find(page => page.url === currentPath);
+const { title, description } = pageData;
 ---
 
-<Layout title="Sobre nosotros">
+<Layout title={title} description={description}>
     <Head/>
     <div class="place-items-center m-4">
         <div class="flex place-content-center">
