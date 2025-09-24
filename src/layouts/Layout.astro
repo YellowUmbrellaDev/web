@@ -7,12 +7,15 @@ const { title } = Astro.props;
 import { ViewTransitions } from 'astro:transitions';
 import { InteractiveRain } from "../components/Rain.jsx";
 import { fade } from 'astro:transitions';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguagePicker from '../components/LanguagePicker.astro';
 
-
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
-<html lang="en" transition:animate={fade({ duration: '0.5s' })}>
+<html lang={lang} transition:animate={fade({ duration: '0.5s' })}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -26,28 +29,29 @@ import { fade } from 'astro:transitions';
 		<meta name="theme-color" content="#ffffff">
 		<meta
         	name="description"
-        	content="The Yellow Umbrella Website ☂️ "
+        	content={t('site.description')}
       	/>
       	<meta
       	  name="keywords"
       	  content="YellowUmbrella, yellow, umbrella"
       	/>
-      	<meta property="og:title" content="The Yellow Umbrella" />
+      	<meta property="og:title" content={t('site.title')} />
       	<meta
       	  property="og:description"
-      	  content="The Yellow Umbrella Website ☂️"
+      	  content={t('site.description')}
       	/>
       	<meta property="og:image" content="https://yellowumbrella.dev/card.png" />
       	<meta property="og:url" content="https://yellowumbrella.dev/" />
       	<meta property="twitter:domain" content="yellowumbrella.dev"/>
       	<meta property="twitter:url" content="https://yellowumbrella.dev/"/>
-      	<meta name="twitter:title" content="The Yellow Umbrella"/>
-      	<meta name="twitter:description" content="The Yellow Umbrella Website ☂️"/>
+      	<meta name="twitter:title" content={t('site.title')}/>
+      	<meta name="twitter:description" content={t('site.description')}/>
       	<meta name="twitter:card" content="summary_large_image" />
       	<meta name="twitter:image" content="https://yellowumbrella.dev/card.png"/>
 		<ViewTransitions/>
 	</head>
 	<body class="no-scroll">
+		<LanguagePicker />
 		<slot />
 		<InteractiveRain client:only="react"></InteractiveRain>
 	</body>

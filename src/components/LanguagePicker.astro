@@ -1,0 +1,57 @@
+---
+import { languages } from '../i18n/ui';
+import { getLangFromUrl, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+
+// Obtener la ruta actual sin el prefijo del idioma
+const currentRoute = getRouteFromUrl(Astro.url) || '';
+---
+
+<div class="fixed top-5 right-5 z-[1000]">
+  <select 
+    id="language-select" 
+    class="bg-gray-900 text-white border border-gray-600 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#ffd300] focus:border-transparent"
+  >
+    {Object.entries(languages).map(([langCode, label]) => {
+      const translatedRoute = translatePath(`/${currentRoute}`, langCode);
+      return (
+        <option 
+          value={langCode} 
+          selected={langCode === lang}
+          data-url={translatedRoute}
+        >
+          {label}
+        </option>
+      );
+    })}
+  </select>
+</div>
+
+<script>
+  function initLanguagePicker() {
+    const select = document.getElementById('language-select') as HTMLSelectElement;
+    
+    if (select) {
+      // Remover event listeners previos para evitar duplicados
+      const newSelect = select.cloneNode(true) as HTMLSelectElement;
+      select.parentNode?.replaceChild(newSelect, select);
+      
+      newSelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const url = selectedOption.getAttribute('data-url');
+        if (url) {
+          window.location.href = url;
+        }
+      });
+    }
+  }
+  
+  // Inicializar cuando se carga la página
+  document.addEventListener('DOMContentLoaded', initLanguagePicker);
+  
+  // Reinicializar después de cada transición de página de Astro
+  document.addEventListener('astro:page-load', initLanguagePicker);
+</script>

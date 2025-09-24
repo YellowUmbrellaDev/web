@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ContactForm from "../../components/ContactForm";
+import Head from "../../components/Head.astro";
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('contact.title')} – ${t('site.title')}`}>
+  <Head />
+  <div class="mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4">
+    <section class="w-full">
+      <div class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-white">{t('contact.title')}</h1>
+        <p class="mt-2 text-white/70">
+          {t('contact.description')}
+        </p>
+      </div>
+      <ContactForm client:load lang={lang} />
+    </section>
+  </div>
+</Layout>

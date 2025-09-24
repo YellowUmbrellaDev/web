@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SocialCard from "../../components/SocialCard.astro";
+import Head from "../../components/Head.astro";
+import data from "../../api/socials.json";
+import twitter from "../../images/twitter.svg";
+import github from "../../images/github-circle.svg";
+import linkedin from "../../images/linkedin.svg";
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Crear mapeo de iconos
+const iconMap = {
+  "twitter": twitter,
+  "github-circle": github,
+  "linkedin": linkedin
+};
+
+export const prerender = false
+---
+<Layout title={`${t('social.title')} - ${t('site.title')}`}>
+    <Head/>
+    <div class="place-items-center mt-10">
+        <div class="flex place-content-center">
+            <h1 class="text-white text-6xl">{t('social.title')}</h1>
+        </div>
+        <div class="flex place-content-center mx-auto max-w-2xl mt-2">
+            <p class="flex text-justify text-white">{t('social.description')}</p>
+        </div>
+        <div class="m-10 socials flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
+            {
+                data.socials.map((output, index) => (
+                <SocialCard
+                    key={index}
+                    icon={iconMap[output.icon]}
+                    name={output.name}
+                    link={output.link}
+                />
+                ))
+            }
+        </div>
+    </div>
+</Layout>

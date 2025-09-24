@@ -1,12 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Head from "../components/Head.astro";
+//Esta pagina es necesaria para que i18n funcione.
+// Redirección automática al idioma predeterminado (español)
+return Astro.redirect('/es/');
 ---
-
-<Layout title="Yellow Umbrella">
-	<div class="flex justify-center items-center h-screen ">
-		<div class="">
-			<Head/>
-		</div>
-	</div>
-</Layout>

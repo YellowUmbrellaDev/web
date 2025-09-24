@@ -4,6 +4,7 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { Turnstile } from "@marsidev/react-turnstile";
 import type { TurnstileInstance } from "@marsidev/react-turnstile";
 import "react-phone-number-input/style.css";
+import { useTranslationsReact, getLangFromUrlReact } from '../i18n/react-utils';
 
 type FormInputs = {
   empresa: string;
@@ -13,8 +14,15 @@ type FormInputs = {
   mensaje: string;
 };
 
+interface ContactFormProps {
+  lang?: string;
+}
 
-export default function ContactForm() {
+export default function ContactForm({ lang }: ContactFormProps = {}) {
+  // Detectar idioma desde la URL del navegador si no se proporciona
+  const currentLang = lang || getLangFromUrlReact(window.location.pathname);
+  const t = useTranslationsReact(currentLang as 'es' | 'en');
+  
   const {
     register,
     handleSubmit,
@@ -42,7 +50,7 @@ export default function ContactForm() {
       }
       
       if (!token) {
-        setStatus({ type: "error", message: "Por favor, completa el captcha antes de enviar" });
+        setStatus({ type: "error", message: t('contact.form.captcha.required') });
         return;
       }
 
@@ -65,7 +73,7 @@ export default function ContactForm() {
 
       if (!res.ok) {
         const text = await res.text();
-        throw new Error(text || "Error al enviar el formulario");
+        throw new Error(text || t('contact.form.error'));
       }
 
       setStatus({ type: "success" });
@@ -75,7 +83,7 @@ export default function ContactForm() {
       // Reset Turnstile widget using ref
       turnstileRef.current?.reset();
     } catch (err: unknown) {
-      setStatus({ type: "error", message: (err instanceof Error ? err.message : String(err)) || "Error inesperado" });
+      setStatus({ type: "error", message: (err instanceof Error ? err.message : String(err)) || t('contact.form.error') });
     }
   };
 
@@ -89,72 +97,72 @@ export default function ContactForm() {
     >
       <div>
         <label className="mb-1 block text-sm font-medium text-white" htmlFor="empresa">
-          Nombre de la empresa
+          {t('contact.form.company')}
         </label>
         <input
           id="empresa"
           className="w-full rounded-md border border-white/20 bg-white/10 p-3 text-white placeholder-white/50 focus:border-yellow-400 focus:outline-none"
-          placeholder="Yellow Umbrella Tech"
+          placeholder={t('contact.form.company.placeholder')}
           {...register("empresa", { required: true })}
         />
         {errors.empresa && (
-          <p className="mt-1 text-sm text-red-400">Este campo es obligatorio</p>
+          <p className="mt-1 text-sm text-red-400">{t('contact.form.company.required')}</p>
         )}
       </div>
 
       <div>
         <label className="mb-1 block text-sm font-medium text-white" htmlFor="nombreCompleto">
-          Nombre y apellidos
+          {t('contact.form.name')}
         </label>
         <input
           id="nombreCompleto"
           className="w-full rounded-md border border-white/20 bg-white/10 p-3 text-white placeholder-white/50 focus:border-yellow-400 focus:outline-none"
-          placeholder="Ana García Rodríguez"
+          placeholder={t('contact.form.name.placeholder')}
           {...register("nombreCompleto", { required: true, minLength: 2 })}
         />
         {errors.nombreCompleto && (
-          <p className="mt-1 text-sm text-red-400">Introduce tu nombre completo</p>
+          <p className="mt-1 text-sm text-red-400">{t('contact.form.name.required')}</p>
         )}
       </div>
 
       <div>
         <label className="mb-1 block text-sm font-medium text-white" htmlFor="cargo">
-          Cargo en la empresa (opcional)
+          {t('contact.form.position')}
         </label>
         <input
           id="cargo"
           className="w-full rounded-md border border-white/20 bg-white/10 p-3 text-white placeholder-white/50 focus:border-yellow-400 focus:outline-none"
-          placeholder="CEO, CTO, etc."
+          placeholder={t('contact.form.position.placeholder')}
           {...register("cargo")}
         />
       </div>
 
       <div>
         <label className="mb-1 block text-sm font-medium text-white" htmlFor="email">
-          Email
+          {t('contact.form.email')}
         </label>
         <input
           id="email"
           type="email"
           className="w-full rounded-md border border-white/20 bg-white/10 p-3 text-white placeholder-white/50 focus:border-yellow-400 focus:outline-none"
-          placeholder="ana.garcia@empresa.com"
+          placeholder={t('contact.form.email.placeholder')}
           {...register("email", {
             required: true,
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
           })}
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-red-400">Introduce un email válido</p>
+          <p className="mt-1 text-sm text-red-400">{t('contact.form.email.required')}</p>
         )}
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-white" htmlFor="telefono">Teléfono (opcional)</label>
+        <label className="mb-1 block text-sm font-medium text-white" htmlFor="telefono">{t('contact.form.phone')}</label>
         <div className="rounded-md border border-white/20 bg-white/10 p-2 text-white focus-within:border-yellow-400">
           <PhoneInput
             id="telefono"
-            defaultCountry="ES"
-            placeholder="+34 600 123 456"
+            defaultCountry={currentLang === 'es' ? "ES" : "US"}
+            placeholder={t('contact.form.phone.placeholder')}
             value={telefono}
             onChange={setTelefono}
             smartCaret={false}
@@ -164,20 +172,20 @@ export default function ContactForm() {
         </div>
         {telefono && typeof telefono === "string" && !isValidPhoneNumber(telefono) && (
           <p className="mt-1 text-sm text-yellow-300">
-            El número puede no ser válido. Revisa el país y formato.
+            {t('contact.form.phone.invalid')}
           </p>
         )}
       </div>
 
       <div>
         <label className="mb-1 block text-sm font-medium text-white" htmlFor="mensaje">
-          Mensaje
+          {t('contact.form.message')}
         </label>
         <textarea
           id="mensaje"
           rows={5}
           className="w-full rounded-md border border-white/20 bg-white/10 p-3 text-white placeholder-white/50 focus:border-yellow-400 focus:outline-none"
-          placeholder="Cuéntanos en qué podemos ayudarte..."
+          placeholder={t('contact.form.message.placeholder')}
           {...register("mensaje", {})}
         />
       </div>
@@ -188,7 +196,7 @@ export default function ContactForm() {
           siteKey={siteKey}
           options={{
             theme: "dark",
-            language: "es",
+            language: currentLang as "es" | "en",
           }}
           onSuccess={(token) => {
             setTurnstileToken(token);
@@ -212,13 +220,13 @@ export default function ContactForm() {
           className="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2 mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]"
         >
           <span className="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-opacity-0 flex items-center justify-center text-xl lg:text-lg md:text-base sm:text-sm text-center leading-tight">
-            {isSubmitting ? "Enviando..." : "Enviar"}
+            {isSubmitting ? t('contact.form.sending') : t('contact.form.send')}
           </span>
         </button>
       </div>
 
       {status.type === "success" && (
-        <p className="text-sm text-green-400">¡Gracias! Hemos recibido tu solicitud.</p>
+        <p className="text-sm text-green-400">{t('contact.form.success')}</p>
       )}
       {status.type === "error" && (
         <p className="text-sm text-red-400">{status.message}</p>
