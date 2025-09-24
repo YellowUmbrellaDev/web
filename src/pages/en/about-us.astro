@@ -1,0 +1,32 @@
+---
+import Head from "../../components/Head.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={`${t('about.title')} - ${t('site.title')}`}>
+    <Head/>
+    <div class="place-items-center m-4">
+        <div class="flex place-content-center">
+            <h1 class="text-white text-6xl">{t('about.title')}</h1>
+        </div>
+        <div class="flex place-content-center mx-auto max-w-2xl mt-10">
+            <span class="text-justify text-white font-monaspace">
+                Yellow Umbrella means many things. For you, if you are the owner 
+                of an emerging business, it means shelter and coverage for all your 
+                cloud, cybersecurity, and development needs.<br><br>
+
+                We are a small group dedicated to ensuring your company can grow peacefully in a world 
+                increasingly dependent on good software.<br><br>
+
+                Our values are clear: We are committed to
+                open source and accessibility to our services and projects. Our future together does not imply dependency. 
+                We seek to cover you and train your team so that when the time comes, you can close the umbrella 
+                and continue your path without us.
+            </span>
+        </div>
+    </div>
+</Layout>

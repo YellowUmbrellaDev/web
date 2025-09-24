@@ -1,42 +1,47 @@
 ---
 import Umbrella from '../components/svg/Umbrella.astro'
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="place-items-center mt-10 m-4">
     <div class="flex place-content-center">
-        <a href="/">
+        <a href={getRelativeLocaleUrl(lang, '')}>
             <Umbrella/>
         </a>
     </div>
-    <p class="text-2xl text-white text-center">It's raining outside, take this</p>
-    <h1 class="text-6xl text-[#ffd300] font-bold text-center">Yellow Umbrella</h1>
+    <p class="text-2xl text-white text-center">{t('home.subtitle')}</p>
+    <h1 class="text-6xl text-[#ffd300] font-bold text-center">{t('home.title')}</h1>
     <nav class="mt-5">
         <ul class="flex flex-wrap justify-center gap-2">
-            <a href="/sobre-nosotros">
+            <a href={getRelativeLocaleUrl(lang, lang === 'es' ? 'sobre-nosotros' : 'about-us')}>
                 <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2  mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
                     <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-opacity-0 flex items-center justify-center text-lg lg:text-base md:text-sm sm:text-xs text-center leading-tight">
-                        ¿Quiénes somos?
+                        {t('home.nav.about')}
                     </span>
                 </button>
             </a>
             <a href="https://blog.yellowumbrella.dev" target="_blank" rel="noreferrer">
                 <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2 mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
                     <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-opacity-0 flex items-center justify-center text-xl lg:text-lg md:text-base sm:text-sm text-center leading-tight">
-                        Blog
+                        {t('home.nav.blog')}
                     </span>
                 </button>
             </a>
-            <a href="/redes-sociales">
+            <a href={getRelativeLocaleUrl(lang, lang === 'es' ? 'redes-sociales' : 'social-networks')}>
                 <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2 mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
                     <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-opacity-0 flex items-center justify-center text-lg lg:text-base md:text-sm sm:text-xs text-center leading-tight">
-                        Redes sociales
+                        {t('home.nav.social')}
                     </span>
                 </button>
             </a>
-            <a href="/contacto">
+            <a href={getRelativeLocaleUrl(lang, lang === 'es' ? 'contacto' : 'contact')}>
                 <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2 mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
                     <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-opacity-0 flex items-center justify-center text-xl lg:text-lg md:text-base sm:text-sm text-center leading-tight">
-                        Contacto
+                        {t('home.nav.contact')}
                     </span>
                 </button>
             </a>

@@ -1,0 +1,50 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const menuItems = [
+  { 
+    path: '', 
+    label: t('nav.home') 
+  },
+  { 
+    path: lang === 'es' ? 'sobre-nosotros' : 'about-us', 
+    label: t('nav.about') 
+  },
+  { 
+    path: lang === 'es' ? 'contacto' : 'contact', 
+    label: t('nav.contact') 
+  },
+  { 
+    path: lang === 'es' ? 'redes-sociales' : 'social-networks', 
+    label: t('nav.social') 
+  },
+];
+---
+
+<nav class="fixed top-20px left-20px z-1000 bg-white/5 backdrop-blur-md rounded-lg p-4">
+  <ul class="flex flex-col gap-2">
+    {menuItems.map((item) => (
+      <li>
+        <a 
+          href={getRelativeLocaleUrl(lang, item.path)} 
+          class="text-white hover:text-yellow-400 transition-colors duration-200 block text-sm"
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+  }
+</style>
