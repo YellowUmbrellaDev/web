@@ -68,6 +68,8 @@ export function startRain(canvas: HTMLCanvasElement, front: HTMLCanvasElement) {
     const n = targetCount();
     if (drops.length > n) drops.length = n;
     while (drops.length < n) drops.push(spawn(true));
+    // Cambiar el tamaño del canvas lo borra: sin animación hay que repintar el fotograma estático.
+    if (reduced.matches) draw();
   };
 
   // Viento: suma de senos lentos + ráfagas ocasionales, suavizado con inercia.
@@ -220,8 +222,7 @@ export function startRain(canvas: HTMLCanvasElement, front: HTMLCanvasElement) {
   reduced.addEventListener('change', () => {
     if (reduced.matches) {
       stop();
-      ctx.clearRect(0, 0, w, h);
-      fctx.clearRect(0, 0, w, h);
+      draw();
     } else start();
   });
   window.addEventListener('pointermove', (e) => {
@@ -233,9 +234,5 @@ export function startRain(canvas: HTMLCanvasElement, front: HTMLCanvasElement) {
   document.documentElement.addEventListener('pointerleave', () => (mouse.active = false));
 
   resize();
-  if (reduced.matches) {
-    // Un fotograma estático para quien no quiere movimiento.
-    updateWind(0);
-    draw();
-  } else start();
+  if (!reduced.matches) start();
 }

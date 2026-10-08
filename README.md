@@ -33,6 +33,8 @@ The site is static and is served from Cloudflare Workers (static assets).
 
 ``npx wrangler deploy`` deploys it (run `npm run build` first).
 
+The contact form no longer exists. Wrangler does not delete secrets already stored on the Worker, so remove `TURNSTILE_SECRET_KEY` and `WEBHOOK_URL` from the dashboard or with `npx wrangler secret delete <NAME>`.
+
 ## Project structure
 
 ```text
