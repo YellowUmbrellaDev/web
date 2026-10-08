@@ -1,0 +1,24 @@
+---
+---
+
+<!-- Gotas por detrás del contenido; salpicaduras por delante (sobre el logo). -->
+<canvas
+  id="rain"
+  aria-hidden="true"
+  transition:persist="lluvia-fondo"
+  style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none"
+></canvas>
+<canvas
+  id="rain-front"
+  aria-hidden="true"
+  transition:persist="lluvia-frente"
+  style="position:fixed;inset:0;width:100%;height:100%;z-index:50;pointer-events:none"
+></canvas>
+
+<script>
+  import { startRain } from '../scripts/rain';
+
+  const back = document.getElementById('rain');
+  const front = document.getElementById('rain-front');
+  if (back instanceof HTMLCanvasElement && front instanceof HTMLCanvasElement) startRain(back, front);
+</script>

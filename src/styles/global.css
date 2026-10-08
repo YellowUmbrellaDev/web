@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "MonaspaceArgon";
+  src: url("/fonts/MonaspaceArgon-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MonaspaceArgon";
+  src: url("/fonts/MonaspaceArgon-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MonaspaceArgon";
+  src: url("/fonts/MonaspaceArgon-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MonaspaceKrypton";
+  src: url("/fonts/MonaspaceKrypton-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MonaspaceKrypton";
+  src: url("/fonts/MonaspaceKrypton-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MonaspaceKrypton";
+  src: url("/fonts/MonaspaceKrypton-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  --color-gray-900: #111827; /* paleta de Tailwind 3: los botones conservan su color exacto */
+  --font-sans: "MonaspaceKrypton", ui-sans-serif, system-ui, sans-serif;
+  --font-monaspace: "MonaspaceArgon", ui-monospace, monospace;
+}
+
+html {
+  background: #13151a;
+}
+
+.no-scroll {
+  scrollbar-width: none;
+}
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Transición entre páginas */
+@keyframes yu-salir {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes yu-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+/* Por defecto las dos capas de una transición se suman (plus-lighter): en algunos
+   navegadores eso se ve como un destello claro. Las dejamos en mezcla normal. */
+::view-transition-image-pair(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  mix-blend-mode: normal;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+/* La cabecera es idéntica en todas las páginas: solo se desliza, sin fundir dos copias. */
+::view-transition-old(cabecera) {
+  display: none;
+}
+::view-transition-new(cabecera) {
+  animation: none;
+}
+::view-transition-group(cabecera) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Móviles apaisados y pantallas muy bajas */
+@custom-variant short (@media (max-height: 520px));

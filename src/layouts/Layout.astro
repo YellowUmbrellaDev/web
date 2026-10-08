@@ -4,18 +4,18 @@ interface Props {
 }
 
 const { title } = Astro.props;
-import { ViewTransitions } from 'astro:transitions';
-import { InteractiveRain } from "../components/Rain.jsx";
-import { fade } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
+import Rain from "../components/Rain.astro";
+import "../styles/global.css";
 
 
 ---
 
 <!doctype html>
-<html lang="en" transition:animate={fade({ duration: '0.5s' })}>
+<html lang="es" style="background-color:#13151a;color-scheme:dark">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -23,7 +23,8 @@ import { fade } from 'astro:transitions';
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="theme-color" content="#ffffff">
+		<meta name="theme-color" content="#13151a">
+		<meta name="color-scheme" content="dark">
 		<meta
         	name="description"
         	content="The Yellow Umbrella Website ☂️ "
@@ -45,70 +46,10 @@ import { fade } from 'astro:transitions';
       	<meta name="twitter:description" content="The Yellow Umbrella Website ☂️"/>
       	<meta name="twitter:card" content="summary_large_image" />
       	<meta name="twitter:image" content="https://yellowumbrella.dev/card.png"/>
-		<ViewTransitions/>
+		<ClientRouter />
 	</head>
 	<body class="no-scroll">
 		<slot />
-		<InteractiveRain client:only="react"></InteractiveRain>
+		<Rain />
 	</body>
 </html>
-<style is:global>
-
-	@font-face {
- 		font-family: 'MonaspaceArgon';
- 		src: url('/fonts/MonaspaceArgon-Regular.woff') format('woff');
- 		font-weight: normal;
- 		font-style: normal;
-	}
-	@font-face {
- 		font-family: 'MonaspaceArgon';
- 		src: url('/fonts/MonaspaceArgon-Bold.woff') format('woff');
- 		font-weight: bold;
- 		font-style: normal;
-	}
-	@font-face {
- 		font-family: 'MonaspaceArgon';
- 		src: url('/fonts/MonaspaceArgon-Italic.woff') format('woff');
- 		font-weight: normal;
- 		font-style: italic;
-	}	
-	@font-face {
- 		font-family: 'MonaspaceKrypton';
- 		src: url('/fonts/MonaspaceKrypton-Regular.woff') format('woff');
- 		font-weight: normal;
- 		font-style: normal;
-	}
-	@font-face {
- 		font-family: 'MonaspaceKrypton';
- 		src: url('/fonts/MonaspaceKrypton-Bold.woff') format('woff');
- 		font-weight: bold;
- 		font-style: normal;
-	}
-	@font-face {
- 		font-family: 'MonaspaceKrypton';
- 		src: url('/fonts/MonaspaceKrypton-Italic.woff') format('woff');
- 		font-weight: normal;
- 		font-style: italic;
-	}
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-		background: #13151a;
-	}
-	.no-scroll::-webkit-scrollbar {
-	  display: none;
-	}
-
-	/* Hide scrollbar for IE, Edge and Firefox */
-	.no-scroll {
-	  -ms-overflow-style: none;  /* IE and Edge */
-	  scrollbar-width: none;  /* Firefox */
-	}
-</style>

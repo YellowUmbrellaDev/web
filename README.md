@@ -19,17 +19,21 @@
 ## Development
 ### Install dependencies
 
-``yarn install``
+``npm install``
 
 ### Run the development server
 
-``yarn dev``
+``npm run dev``
 
 ## Production
 
-Build the docker image and run the container
+The site is static and is served from Cloudflare Workers (static assets).
 
-``docker compose up -d --build``
+``npm run preview`` builds the site and serves it locally with `wrangler dev`.
+
+``npx wrangler deploy`` deploys it (run `npm run build` first).
+
+The contact form no longer exists. Wrangler does not delete secrets already stored on the Worker, so remove `TURNSTILE_SECRET_KEY` and `WEBHOOK_URL` from the dashboard or with `npx wrangler secret delete <NAME>`.
 
 ## Project structure
 
