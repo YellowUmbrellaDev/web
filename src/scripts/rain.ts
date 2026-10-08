@@ -13,11 +13,17 @@ const LAYERS = [
   { speed: 1.3, length: 1.3, alpha: 0.5, width: 1.5, share: 0.2 },
 ];
 const BASE_FALL = 760; // px/s de la capa media
-const UMBRELLA_R = 64; // radio del paraguas del cursor
+const CURSOR_R = 64; // radio del paraguas del cursor
 
-export function startRain(canvas: HTMLCanvasElement) {
+// Un paraguas es una media elipse (la cúpula) con una zona seca debajo (centro, radios, medio ancho y alto secos).
+type Umbrella = { cx: number; cy: number; rx: number; ry: number; dryHalf: number; dryDepth: number };
+
+// `canvas` queda detrás del contenido (gotas); `front` va por delante y solo pinta las salpicaduras,
+// para que se vean sobre el logo y el resto de la página.
+export function startRain(canvas: HTMLCanvasElement, front: HTMLCanvasElement) {
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  const fctx = front.getContext('2d');
+  if (!ctx || !fctx) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -31,6 +37,8 @@ export function startRain(canvas: HTMLCanvasElement) {
   let last = 0;
   let raf = 0;
   const mouse = { x: -1000, y: -1000, active: false };
+  const logos: Umbrella[] = [];
+  let measureAt = 0;
 
   const targetCount = () => Math.round(Math.min(420, Math.max(90, (w * h) / 7000)));
 
@@ -52,9 +60,11 @@ export function startRain(canvas: HTMLCanvasElement) {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     w = window.innerWidth;
     h = window.innerHeight;
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    for (const [c, cx] of [[canvas, ctx], [front, fctx]] as const) {
+      c.width = Math.round(w * dpr);
+      c.height = Math.round(h * dpr);
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
     const n = targetCount();
     if (drops.length > n) drops.length = n;
     while (drops.length < n) drops.push(spawn(true));
@@ -68,10 +78,45 @@ export function startRain(canvas: HTMLCanvasElement) {
     wind += (breeze - 90 + gust - wind) * Math.min(1, dt * 0.8);
   };
 
+  // Los logos marcados con [data-rain-obstacle] también paran la lluvia.
+  // Se miden unas pocas veces por segundo: la página cambia al navegar, redimensionar o hacer scroll.
+  const measureLogos = (now: number) => {
+    if (now - measureAt < 100) return;
+    measureAt = now;
+    logos.length = 0;
+    document.querySelectorAll('[data-rain-obstacle]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.width < 8 || r.bottom < 0 || r.top > h) return;
+      // La cúpula del logo ocupa todo el ancho y llega hasta ~44% de su alto; el mango queda seco.
+      logos.push({
+        cx: r.left + r.width / 2,
+        cy: r.top + r.height * 0.44,
+        rx: r.width / 2,
+        ry: r.height * 0.39,
+        dryHalf: r.width * 0.4,
+        dryDepth: r.height * 0.56,
+      });
+    });
+  };
+
+  // Devuelve el paraguas que intercepta la gota, o null.
+  const hits = (u: Umbrella, d: Drop) => {
+    const dx = d.x - u.cx;
+    const dy = d.y - u.cy;
+    if (dy < 0) {
+      const nx = dx / u.rx;
+      const ny = dy / u.ry;
+      return nx * nx + ny * ny < 1 ? 'dome' : null;
+    }
+    return dy < u.dryDepth && Math.abs(dx) < u.dryHalf ? 'dry' : null;
+  };
+
   const step = (dt: number) => {
     updateWind(dt);
-    const mx = mouse.x;
-    const my = mouse.y;
+    measureLogos(performance.now());
+    const cursor: Umbrella | null = mouse.active
+      ? { cx: mouse.x, cy: mouse.y, rx: CURSOR_R, ry: CURSOR_R, dryHalf: CURSOR_R * 0.9, dryDepth: CURSOR_R * 1.8 }
+      : null;
     for (let i = 0; i < drops.length; i++) {
       const d = drops[i];
       const vy = BASE_FALL * d.speed;
@@ -79,17 +124,12 @@ export function startRain(canvas: HTMLCanvasElement) {
       d.x += vx * dt;
       d.y += vy * dt;
 
-      if (mouse.active) {
-        // Cúpula del paraguas: semicírculo superior; debajo queda un hueco seco.
-        const dx = d.x - mx;
-        const dy = d.y - my;
-        const inDome = dy < 0 && dx * dx + dy * dy < UMBRELLA_R * UMBRELLA_R;
-        const inShadow = dy >= 0 && dy < UMBRELLA_R * 1.8 && Math.abs(dx) < UMBRELLA_R * 0.9;
-        if (inDome || inShadow) {
-          if (inDome && d.layer > 0) splashes.push({ x: d.x, y: d.y, age: 0, life: 0.28, size: 3 + d.layer * 1.5, up: true });
-          Object.assign(d, spawn(false));
-          continue;
-        }
+      let hit: 'dome' | 'dry' | null = cursor ? hits(cursor, d) : null;
+      for (let j = 0; !hit && j < logos.length; j++) hit = hits(logos[j], d);
+      if (hit) {
+        if (hit === 'dome' && d.layer > 0) splashes.push({ x: d.x, y: d.y, age: 0, life: 0.28, size: 3 + d.layer * 1.5, up: true });
+        Object.assign(d, spawn(false));
+        continue;
       }
 
       if (d.y > h + 20 || d.x < -150 || d.x > w + 150) {
@@ -108,6 +148,7 @@ export function startRain(canvas: HTMLCanvasElement) {
 
   const draw = () => {
     ctx.clearRect(0, 0, w, h);
+    fctx.clearRect(0, 0, w, h);
     ctx.lineCap = 'round';
     for (let layer = 0; layer < LAYERS.length; layer++) {
       const l = LAYERS[layer];
@@ -125,18 +166,18 @@ export function startRain(canvas: HTMLCanvasElement) {
       }
       ctx.stroke();
     }
-    ctx.lineWidth = 1;
+    fctx.lineWidth = 1;
     for (const s of splashes) {
       const t = s.age / s.life;
       const r = s.size * (0.3 + t);
-      ctx.strokeStyle = `rgba(214, 224, 255, ${0.4 * (1 - t)})`;
-      ctx.beginPath();
+      fctx.strokeStyle = `rgba(214, 224, 255, ${0.4 * (1 - t)})`;
+      fctx.beginPath();
       if (s.up) {
-        ctx.arc(s.x, s.y, r, Math.PI, 2 * Math.PI);
+        fctx.arc(s.x, s.y, r, Math.PI, 2 * Math.PI);
       } else {
-        ctx.ellipse(s.x, s.y, r * 1.6, r * 0.45, 0, Math.PI, 2 * Math.PI);
+        fctx.ellipse(s.x, s.y, r * 1.6, r * 0.45, 0, Math.PI, 2 * Math.PI);
       }
-      ctx.stroke();
+      fctx.stroke();
     }
   };
 
@@ -164,6 +205,7 @@ export function startRain(canvas: HTMLCanvasElement) {
     if (reduced.matches) {
       stop();
       ctx.clearRect(0, 0, w, h);
+      fctx.clearRect(0, 0, w, h);
     } else start();
   });
   window.addEventListener('pointermove', (e) => {
