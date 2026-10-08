@@ -55,3 +55,8 @@ The contact form no longer exists. Wrangler does not delete secrets already stor
 │     // Pages of the website
 │   
 ```
+## Contact email
+
+The address is not in the HTML. `/contacto` shows a button that runs an invisible Turnstile check and, if it passes, `POST /api/correo` (handled by `src/worker.ts`) returns the address.
+
+The Worker needs the `TURNSTILE_SECRET_KEY` secret (`npx wrangler secret put TURNSTILE_SECRET_KEY`). The widget's site key is public and lives in `src/pages/contacto.astro`; override it with `PUBLIC_TURNSTILE_SITE_KEY` at build time. Locally, copy `.dev.vars.example` to `.dev.vars` to use Cloudflare's test keys.
