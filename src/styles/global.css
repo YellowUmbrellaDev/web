@@ -58,3 +58,43 @@ html {
 .no-scroll::-webkit-scrollbar {
   display: none;
 }
+
+/* Transición entre páginas */
+@keyframes yu-salir {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes yu-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+/* La cabecera es idéntica en todas las páginas: solo se desliza, sin fundir dos copias. */
+::view-transition-old(cabecera) {
+  display: none;
+}
+::view-transition-new(cabecera) {
+  animation: none;
+}
+::view-transition-group(cabecera) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Móviles apaisados y pantallas muy bajas */
+@custom-variant short (@media (max-height: 520px));

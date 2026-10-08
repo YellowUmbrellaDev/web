@@ -2,37 +2,37 @@
 import Umbrella from '../components/svg/Umbrella.astro'
 ---
 
-<div class="place-items-center mt-10 m-4">
+<div class="place-items-center mt-6 m-4 sm:mt-10" transition:name="cabecera">
     <div class="flex place-content-center">
         <a href="/">
             <Umbrella/>
         </a>
     </div>
-    <p class="text-2xl text-white text-center">It's raining outside, take this</p>
-    <h1 class="text-6xl text-[#ffd300] font-bold text-center">Yellow Umbrella</h1>
-    <nav class="mt-5">
-        <ul class="flex flex-wrap justify-center gap-2">
-            <a href="/sobre-nosotros">
-                <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2  mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-linear-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
-                    <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-transparent flex items-center justify-center text-lg lg:text-base md:text-sm sm:text-xs text-center leading-tight">
+    <p class="text-lg text-white text-center sm:text-2xl">It's raining outside, take this</p>
+    <h1 class="text-4xl text-[#ffd300] font-bold text-center sm:text-6xl">Yellow Umbrella</h1>
+    <nav class="mt-5 px-3" aria-label="Principal">
+        <ul class="mx-auto flex max-w-sm justify-center gap-2 sm:max-w-none sm:gap-4">
+            <li class="min-w-0 flex-1 sm:flex-none">
+                <a href="/sobre-nosotros" class="group relative inline-flex h-14 w-full items-center justify-center overflow-hidden rounded-lg p-[2px] font-medium text-gray-900 bg-linear-to-br from-[#ffd300] to-[#773376] hover:text-white focus-visible:ring-4 focus-visible:ring-[#773376] focus-visible:outline-none sm:h-16 sm:w-32">
+                    <span class="flex h-full w-full items-center justify-center rounded-[6px] bg-white px-1 py-1 text-center text-sm leading-tight transition-all duration-75 ease-in group-hover:bg-transparent sm:px-2 sm:text-base">
                         ¿Quiénes somos?
                     </span>
-                </button>
-            </a>
-            <a href="/redes-sociales">
-                <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2 mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-linear-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
-                    <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-transparent flex items-center justify-center text-lg lg:text-base md:text-sm sm:text-xs text-center leading-tight">
+                </a>
+            </li>
+            <li class="min-w-0 flex-1 sm:flex-none">
+                <a href="/redes-sociales" class="group relative inline-flex h-14 w-full items-center justify-center overflow-hidden rounded-lg p-[2px] font-medium text-gray-900 bg-linear-to-br from-[#ffd300] to-[#773376] hover:text-white focus-visible:ring-4 focus-visible:ring-[#773376] focus-visible:outline-none sm:h-16 sm:w-32">
+                    <span class="flex h-full w-full items-center justify-center rounded-[6px] bg-white px-1 py-1 text-center text-sm leading-tight transition-all duration-75 ease-in group-hover:bg-transparent sm:px-2 sm:text-base">
                         Redes sociales
                     </span>
-                </button>
-            </a>
-            <a href="/contacto">
-                <button class="relative inline-flex items-center justify-center w-32 h-16 p-[2px] mb-2 mr-4 overflow-hidden font-medium text-gray-900 rounded-lg group bg-linear-to-br from-[#ffd300] to-[#773376] group-hover:from-[#ffd300] group-hover:to-[#773376] hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-[#773376] dark:focus:ring-[#773376]">
-                    <span class="relative w-full h-full px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-[6px] group-hover:bg-transparent flex items-center justify-center text-xl lg:text-lg md:text-base sm:text-sm text-center leading-tight">
+                </a>
+            </li>
+            <li class="min-w-0 flex-1 sm:flex-none">
+                <a href="/contacto" class="group relative inline-flex h-14 w-full items-center justify-center overflow-hidden rounded-lg p-[2px] font-medium text-gray-900 bg-linear-to-br from-[#ffd300] to-[#773376] hover:text-white focus-visible:ring-4 focus-visible:ring-[#773376] focus-visible:outline-none sm:h-16 sm:w-32">
+                    <span class="flex h-full w-full items-center justify-center rounded-[6px] bg-white px-1 py-1 text-center text-sm leading-tight transition-all duration-75 ease-in group-hover:bg-transparent sm:px-2 sm:text-base">
                         Contacto
                     </span>
-                </button>
-            </a>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

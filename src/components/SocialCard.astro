@@ -8,7 +8,7 @@ const {icon, name, link} = Astro.props;
             rel="noopener noreferrer"
             class="relative block no-underline"
         >
-            <div class="w-24 h-24 md:w-32 md:h-32 relative overflow-visible rounded-xl md:rounded-2xl transition-all duration-500 ease-in-out select-none touch-manipulation">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 relative overflow-visible rounded-xl md:rounded-2xl transition-all duration-500 ease-in-out select-none touch-manipulation">
                 <img
                     class="w-full h-full object-contain transition-all duration-500 ease-in-out [filter:brightness(0)_saturate(100%)_invert(64%)_sepia(8%)_saturate(1451%)_hue-rotate(174deg)_brightness(102%)_contrast(89%)] group-hover:[filter:brightness(0)_saturate(100%)_invert(84%)_sepia(61%)_saturate(2794%)_hue-rotate(359deg)_brightness(102%)_contrast(101%)] p-3"
                     src={icon.src}
@@ -23,7 +23,7 @@ const {icon, name, link} = Astro.props;
                 </p>
             </div>
             <!-- Barra neón que se mueve desde arriba del icono hasta debajo del texto -->
-            <div class="absolute -top-0 left-0 w-full h-1.5 bg-[#ffd300] transition-all duration-700 ease-out group-hover:top-[6rem] md:group-hover:top-[7.5rem]"></div>
+            <div class="absolute -top-0 left-0 w-full h-1.5 bg-[#ffd300] transition-all duration-700 ease-out group-hover:top-[5rem] sm:group-hover:top-[6rem] md:group-hover:top-[7.5rem]"></div>
         </a>
     </div>
 </div>
