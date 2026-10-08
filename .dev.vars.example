@@ -1,0 +1,3 @@
+# Copia a .dev.vars para probar en local. Estas son las claves de prueba de Cloudflare:
+# con ellas la comprobación de Turnstile siempre pasa (no valen en producción).
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
