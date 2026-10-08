@@ -19,17 +19,19 @@
 ## Development
 ### Install dependencies
 
-``yarn install``
+``npm install``
 
 ### Run the development server
 
-``yarn dev``
+``npm run dev``
 
 ## Production
 
-Build the docker image and run the container
+The site is static and is served from Cloudflare Workers (static assets).
 
-``docker compose up -d --build``
+``npm run preview`` builds the site and serves it locally with `wrangler dev`.
+
+``npx wrangler deploy`` deploys it (run `npm run build` first).
 
 ## Project structure
 

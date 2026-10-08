@@ -1,9 +1,0 @@
-version: "3"
-services:
-  web:
-    container_name: yuweb
-    image: web
-    build: .
-    restart: always
-    ports:
-      - "4321:4321"

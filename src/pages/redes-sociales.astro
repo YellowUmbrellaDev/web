@@ -8,13 +8,12 @@ import github from "../images/github-circle.svg";
 import linkedin from "../images/linkedin.svg";
 
 // Crear mapeo de iconos
-const iconMap = {
+const iconMap: Record<string, ImageMetadata> = {
   "twitter": twitter,
   "github-circle": github,
   "linkedin": linkedin
 };
 
-export const prerender = false
 ---
 <Layout title="Redes sociales">
     <Head/>
