@@ -44,6 +44,7 @@
 }
 
 @theme {
+  --color-gray-900: #111827; /* paleta de Tailwind 3: los botones conservan su color exacto */
   --font-sans: "MonaspaceKrypton", ui-sans-serif, system-ui, sans-serif;
   --font-monaspace: "MonaspaceArgon", ui-monospace, monospace;
 }
