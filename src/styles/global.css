@@ -72,10 +72,16 @@ html {
     transform: translateY(14px);
   }
 }
+/* Por defecto las dos capas de una transición se suman (plus-lighter): en algunos
+   navegadores eso se ve como un destello claro. Las dejamos en mezcla normal. */
+::view-transition-image-pair(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  mix-blend-mode: normal;
+}
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
-  mix-blend-mode: normal;
 }
 /* La cabecera es idéntica en todas las páginas: solo se desliza, sin fundir dos copias. */
 ::view-transition-old(cabecera) {
