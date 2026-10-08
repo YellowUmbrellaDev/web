@@ -5,7 +5,7 @@
 // - Se pausa con la pestaña oculta y respeta prefers-reduced-motion.
 
 type Drop = { x: number; y: number; layer: number; speed: number; length: number; seed: number };
-type Splash = { x: number; y: number; age: number; life: number; size: number; up: boolean };
+type Splash = { x: number; y: number; age: number; life: number; size: number; up: boolean; onLogo?: boolean };
 
 const LAYERS = [
   { speed: 0.55, length: 0.55, alpha: 0.2, width: 0.8, share: 0.4 },
@@ -125,9 +125,15 @@ export function startRain(canvas: HTMLCanvasElement, front: HTMLCanvasElement) {
       d.y += vy * dt;
 
       let hit: 'dome' | 'dry' | null = cursor ? hits(cursor, d) : null;
-      for (let j = 0; !hit && j < logos.length; j++) hit = hits(logos[j], d);
+      let onLogo = false;
+      for (let j = 0; !hit && j < logos.length; j++) {
+        hit = hits(logos[j], d);
+        onLogo = hit !== null;
+      }
       if (hit) {
-        if (hit === 'dome' && d.layer > 0) splashes.push({ x: d.x, y: d.y, age: 0, life: 0.28, size: 3 + d.layer * 1.5, up: true });
+        if (hit === 'dome' && (d.layer > 0 || onLogo) && splashes.length < 80) {
+          splashes.push({ x: d.x, y: d.y, age: 0, life: onLogo ? 0.4 : 0.28, size: (onLogo ? 4 : 3) + d.layer * 1.5, up: true, onLogo });
+        }
         Object.assign(d, spawn(false));
         continue;
       }
@@ -166,18 +172,28 @@ export function startRain(canvas: HTMLCanvasElement, front: HTMLCanvasElement) {
       }
       ctx.stroke();
     }
-    fctx.lineWidth = 1;
     for (const s of splashes) {
       const t = s.age / s.life;
       const r = s.size * (0.3 + t);
-      fctx.strokeStyle = `rgba(214, 224, 255, ${0.4 * (1 - t)})`;
-      fctx.beginPath();
-      if (s.up) {
-        fctx.arc(s.x, s.y, r, Math.PI, 2 * Math.PI);
+      const arc = () => {
+        fctx.beginPath();
+        if (s.up) fctx.arc(s.x, s.y, r, Math.PI, 2 * Math.PI);
+        else fctx.ellipse(s.x, s.y, r * 1.6, r * 0.45, 0, Math.PI, 2 * Math.PI);
+        fctx.stroke();
+      };
+      if (s.onLogo) {
+        // Sobre la tela amarilla el azul pálido no se lee: un trazo oscuro por debajo y otro claro encima.
+        fctx.lineWidth = 2.6;
+        fctx.strokeStyle = `rgba(60, 40, 0, ${0.45 * (1 - t)})`;
+        arc();
+        fctx.lineWidth = 1.2;
+        fctx.strokeStyle = `rgba(235, 242, 255, ${0.95 * (1 - t)})`;
+        arc();
       } else {
-        fctx.ellipse(s.x, s.y, r * 1.6, r * 0.45, 0, Math.PI, 2 * Math.PI);
+        fctx.lineWidth = 1;
+        fctx.strokeStyle = `rgba(214, 224, 255, ${0.4 * (1 - t)})`;
+        arc();
       }
-      fctx.stroke();
     }
   };
 
