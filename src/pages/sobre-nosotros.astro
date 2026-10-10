@@ -2,30 +2,48 @@
 
 import Head from "../components/Head.astro";
 import Layout from "../layouts/Layout.astro";
-import { aparece } from "../lib/transiciones";
 
 
 ---
 
 <Layout title="Sobre nosotros">
     <Head/>
-    <div class="place-items-center m-4" transition:name="contenido" transition:animate={aparece}>
+    <div class="place-items-center m-4">
         <div class="flex place-content-center">
-            <h1 class="text-white text-4xl text-center sm:text-6xl">Sobre nosotros</h1>
+            <h1 class="text-white text-6xl">Sobre nosotros</h1>
         </div>
-        <div class="flex place-content-center mx-auto max-w-2xl mt-6 px-1 sm:mt-10">
-            <span class="text-left text-white font-monaspace sm:text-justify">
-                Yellow Umbrella significa muchas cosas. Para tí, si eres el dueño 
-                de un negocio emergente, significa resguardo y cobertura de todas tus necesidades 
-                de cloud, ciberseguridad, y desarrollo.<br><br>
+        <div class="flex place-content-center mx-auto max-w-2xl mt-10">
+            <span class="text-justify text-white font-monaspace">
+                Yellow Umbrella es una anécdota. Una historia que une a las dos fundadoras 
+                de este proyecto desde que se conocieron por primera vez. Desde ese día, se 
+                ha convertido en el nombre de nuestro propósito personal: Usar la tecnología 
+                para hacer el mundo un poquito mejor.<br><br>
 
-                Somos un pequeño grupo dedicado a que tu empresa pueda crecer tranquila en un mundo cada vez 
-                más dependiente de un buen software.<br><br>
+                Somos una organización sin ánimo de lucro que actúa en dos pilares:<br><br>
 
-                Nuestros valores son claros: Estamos comprometidos con el
-                código abierto y la accesibilidad a nuestros servicios y proyectos. Nuestro futuro juntos no implica dependencia. 
-                Buscamos cubrirte y entrenar a tu equipo para que llegado el momento, puedas cerrar el paragüas 
-                y continuar tu camino sin nosotros.
+                <b>Asistir a obras afines:</b> Ya sean otras asociaciones sin ánimo de lucro, ONGs, fundaciones u 
+                organizaciones de interés público y obra social, Ofrecemos ayuda tecnológica mediante darles apoyo IT y asistirlas durante su proceso de 
+                digitalización, para que puedan alcanzar sus propósitos y expandir su alcance con la ayuda de la tecnología.<br><br>
+
+                <b>Divulgación responsable:</b> Somos conscientes de la inmensa brecha tecnológica que se ha formado a lo largo de los últimos 
+                años. Nuestra intención es aportar conocimiento sobre ciberseguridad, software, automatización, y generalmente, el uso más 
+                responsable de la tecnología moderna, con todo aquel que lo necesite.<br><br>
+                
+                
+                
+                
+                <br><br><a 
+                    class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-transparent bg-clip-text" 
+                    href="https://aileenyx.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    AileeNyx
+                </a> y
+                <a class="inline-block bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-transparent bg-clip-text" 
+                    href="https://sigterm.vodka" 
+                    target="_blank" rel="noopener noreferrer">
+                    SIGTERM
+                </a>
             </span>
         </div>
     </div>
